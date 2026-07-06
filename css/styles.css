@@ -29,6 +29,12 @@ img { max-width: 100%; display: block; }
 a { color: inherit; text-decoration: none; }
 ul { list-style: none; margin: 0; padding: 0; }
 
+:focus-visible {
+  outline: 2px solid var(--blue-light);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
 .wrap {
   max-width: var(--wrap);
   margin: 0 auto;
@@ -292,6 +298,38 @@ ul { list-style: none; margin: 0; padding: 0; }
   margin: 0 0 40px;
 }
 .hero-cta { display: flex; gap: 16px; flex-wrap: wrap; }
+
+/* ---------- trust bar ---------- */
+.trust-bar {
+  padding: 34px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-soft);
+}
+.trust-bar-inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 24px;
+}
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--dim);
+  font-size: 13.5px;
+  font-weight: 600;
+}
+.trust-item svg {
+  width: 20px;
+  height: 20px;
+  color: var(--blue-light);
+  flex-shrink: 0;
+}
+@media (max-width: 900px) {
+  .trust-bar-inner { justify-content: flex-start; }
+  .trust-item { flex: 1 1 45%; }
+}
 
 /* ---------- section shared ---------- */
 section { padding: 120px 0; position: relative; }
@@ -617,6 +655,47 @@ section { padding: 120px 0; position: relative; }
 .ig-comments-link { padding: 5px 14px 0; font-size: 12px; color: #8a8a8a; }
 .ig-timestamp { padding: 5px 14px 14px; font-size: 10px; letter-spacing: .3px; color: #b0b0b0; text-transform: uppercase; }
 
+/* ---------- faq ---------- */
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  max-width: 780px;
+}
+.faq-item {
+  border-top: 1px solid var(--line);
+  padding: 24px 0;
+}
+.faq-item:last-child { border-bottom: 1px solid var(--line); }
+.faq-item summary {
+  cursor: pointer;
+  list-style: none;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 16.5px;
+  color: var(--white);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after {
+  content: '+';
+  flex-shrink: 0;
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--blue-light);
+  transition: transform .25s ease;
+}
+.faq-item[open] summary::after { transform: rotate(45deg); }
+.faq-item p {
+  margin: 14px 0 0;
+  color: var(--dim);
+  font-size: 15px;
+  line-height: 1.65;
+  max-width: 680px;
+}
+
 /* ---------- contact ---------- */
 .contact { padding: 0 0 120px; }
 .contact-panel {
@@ -722,7 +801,8 @@ section { padding: 120px 0; position: relative; }
 }
 .contact-form input:focus,
 .contact-form textarea:focus {
-  outline: none;
+  outline: 2px solid var(--blue-light);
+  outline-offset: 2px;
   border-color: var(--blue);
 }
 .form-note {
