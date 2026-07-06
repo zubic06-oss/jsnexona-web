@@ -401,8 +401,18 @@ section { padding: 120px 0; position: relative; }
   padding: 40px 30px;
   position: relative;
   overflow: hidden;
-  transition: background .3s ease;
+  transition: background .3s ease, box-shadow .35s ease;
 }
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--blue-light), transparent);
+  transform: scaleX(0);
+  transition: transform .5s cubic-bezier(.2,.7,.2,1);
+}
+.service-card:hover::before { transform: scaleX(1); }
 .service-card::after {
   content: '';
   position: absolute;
@@ -413,7 +423,11 @@ section { padding: 120px 0; position: relative; }
   pointer-events: none;
 }
 .service-card:hover::after { transform: translateX(100%); }
-.service-card:hover { background: var(--bg-softer); }
+.service-card:hover {
+  background: var(--bg-softer);
+  box-shadow: 0 24px 50px rgba(0,0,0,.35), inset 0 0 0 1px rgba(45,107,255,.2);
+  z-index: 2;
+}
 .service-num {
   display: block;
   font-family: var(--font-head);
@@ -475,7 +489,8 @@ section { padding: 120px 0; position: relative; }
 .sector-item:hover {
   border-color: rgba(45,107,255,.4);
   background: var(--bg-softer);
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  box-shadow: 0 16px 34px rgba(0,0,0,.3);
 }
 .sector-item svg {
   width: 22px;
@@ -558,7 +573,8 @@ section { padding: 120px 0; position: relative; }
   transition: stroke-dashoffset 1.6s cubic-bezier(.2,.7,.2,1);
 }
 .steps.is-visible .steps-line-fill { stroke-dashoffset: 0; }
-.step { text-align: center; }
+.step { text-align: center; transition: transform .35s ease; }
+.step:hover { transform: translateY(-4px); }
 .step-num {
   display: inline-block;
   font-family: var(--font-head);
@@ -571,7 +587,10 @@ section { padding: 120px 0; position: relative; }
   text-align: center;
   line-height: 34px;
   margin: 0 auto 20px;
+  box-shadow: 0 0 0 0 rgba(127,168,255,.25);
+  transition: box-shadow .35s ease;
 }
+.step:hover .step-num { box-shadow: 0 0 0 7px rgba(127,168,255,.18); }
 .step h3 {
   font-family: var(--font-head);
   font-size: 17px;
@@ -738,9 +757,13 @@ section { padding: 120px 0; position: relative; }
 }
 .faq-item {
   border-top: 1px solid var(--line);
-  padding: 24px 0;
+  padding: 0 20px;
+  margin: 0 -20px;
+  border-radius: 10px;
+  transition: background .25s ease;
 }
 .faq-item:last-child { border-bottom: 1px solid var(--line); }
+.faq-item:hover { background: var(--bg-soft); }
 .faq-item summary {
   cursor: pointer;
   list-style: none;
@@ -752,7 +775,10 @@ section { padding: 120px 0; position: relative; }
   justify-content: space-between;
   align-items: center;
   gap: 16px;
+  padding: 24px 0;
+  transition: color .25s ease;
 }
+.faq-item:hover summary { color: var(--blue-light); }
 .faq-item summary::-webkit-details-marker { display: none; }
 .faq-item summary::after {
   content: '+';
@@ -760,11 +786,14 @@ section { padding: 120px 0; position: relative; }
   font-size: 22px;
   font-weight: 400;
   color: var(--blue-light);
-  transition: transform .25s ease;
+  transition: transform .3s cubic-bezier(.2,.7,.2,1);
 }
+.faq-item:hover summary::after { transform: scale(1.15); }
 .faq-item[open] summary::after { transform: rotate(45deg); }
+.faq-item[open]:hover summary::after { transform: rotate(45deg) scale(1.15); }
 .faq-item p {
   margin: 14px 0 0;
+  padding-bottom: 24px;
   color: var(--dim);
   font-size: 15px;
   line-height: 1.65;
