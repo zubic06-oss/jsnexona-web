@@ -601,6 +601,17 @@ section { padding: 120px 0; position: relative; }
   transition: padding-left .25s ease, color .25s ease;
 }
 .quick-contact a:last-child { border-bottom: 1px solid var(--line); }
+.quick-link-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.whatsapp-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  color: #25D366;
+}
 .quick-link span {
   font-size: 12px;
   font-weight: 700;
@@ -670,6 +681,8 @@ section { padding: 120px 0; position: relative; }
   padding-top: 24px;
   border-top: 1px solid var(--line);
 }
+.footer-copy a { color: var(--dim); text-decoration: underline; }
+.footer-copy a:hover { color: var(--blue-light); }
 
 /* ---------- responsive ---------- */
 @media (max-width: 900px) {
