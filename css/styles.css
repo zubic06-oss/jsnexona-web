@@ -451,11 +451,15 @@ section { padding: 120px 0; position: relative; }
   font-size: 13px;
   font-weight: 700;
   color: var(--blue-light);
-  opacity: 0;
-  transform: translateX(-6px);
-  transition: opacity .3s ease, transform .3s ease;
 }
-.service-card:hover .service-link { opacity: 1; transform: translateX(0); }
+@media (hover: hover) {
+  .service-link {
+    opacity: 0;
+    transform: translateX(-6px);
+    transition: opacity .3s ease, transform .3s ease;
+  }
+  .service-card:hover .service-link { opacity: 1; transform: translateX(0); }
+}
 
 /* ---------- sectores ---------- */
 .sectors-grid {
