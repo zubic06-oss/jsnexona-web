@@ -99,18 +99,34 @@ if (steps) {
   stepsObserver.observe(steps);
 }
 
-// Contact form (placeholder submit)
+// Contact form (envío real vía Formspree)
 const form = document.getElementById('contactForm');
-form.addEventListener('submit', (e) => {
+form.addEventListener('submit', async (e) => {
   e.preventDefault();
   const btn = form.querySelector('button[type="submit"]');
   const original = btn.textContent;
-  btn.textContent = 'Mensaje enviado ✓';
   btn.disabled = true;
-  form.reset();
+  btn.textContent = 'Enviando...';
+
+  try {
+    const response = await fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { Accept: 'application/json' },
+    });
+
+    if (response.ok) {
+      btn.textContent = 'Mensaje enviado ✓';
+      form.reset();
+    } else {
+      btn.textContent = 'Error, intenta de nuevo';
+    }
+  } catch {
+    btn.textContent = 'Error, intenta de nuevo';
+  }
+
   setTimeout(() => {
     btn.textContent = original;
     btn.disabled = false;
   }, 3000);
-  // TODO: conectar a un backend real (Formspree, EmailJS, API propia, etc.)
 });
