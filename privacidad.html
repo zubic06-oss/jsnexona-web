@@ -20,7 +20,28 @@
   .legal li { margin-bottom: 8px; }
   .legal strong { color: var(--white); }
   .legal a { color: var(--blue-light); text-decoration: underline; }
-  .back-link { display: inline-block; margin-bottom: 30px; color: var(--blue-light); font-size: 14px; font-weight: 600; }
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 30px;
+    padding: 10px 18px;
+    border-radius: 999px;
+    border: 1px solid rgba(245,247,250,.18);
+    color: var(--white);
+    font-family: var(--font-head);
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: border-color .25s ease, background .25s ease, transform .25s ease;
+  }
+  .back-link:hover {
+    border-color: var(--blue-light);
+    background: rgba(45,107,255,.12);
+    transform: translateX(-3px);
+  }
+  /* Esta página no carga el cursor personalizado del sitio principal: se restaura el cursor normal */
+  body, a, button, input, textarea { cursor: auto !important; }
 </style>
 </head>
 <body>
