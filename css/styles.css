@@ -594,11 +594,6 @@ section { padding: 120px 0; position: relative; }
   aspect-ratio: 1;
   background-size: cover;
   background-position: center;
-  animation: igPhotoZoom 9s ease-in-out infinite alternate;
-}
-@keyframes igPhotoZoom {
-  0% { transform: scale(1); }
-  100% { transform: scale(1.1); }
 }
 .ig-actions { display: flex; justify-content: space-between; align-items: center; padding: 10px 14px 0; color: #1a1a1a; }
 .ig-actions-left { display: flex; gap: 14px; }
