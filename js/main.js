@@ -59,7 +59,50 @@ const baRange = document.getElementById('baRange');
 if (baSlider && baRange) {
   const setPos = (value) => baSlider.style.setProperty('--pos', `${value}%`);
   setPos(baRange.value);
+
+  let baUserInteracted = false;
+  baRange.addEventListener('pointerdown', () => { baUserInteracted = true; });
   baRange.addEventListener('input', () => setPos(baRange.value));
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const animateBaTo = (target, duration) => new Promise((resolve) => {
+    const start = parseFloat(baRange.value);
+    const startTime = performance.now();
+    function frame(now) {
+      if (baUserInteracted) return resolve();
+      const p = Math.min((now - startTime) / duration, 1);
+      const eased = p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+      const value = start + (target - start) * eased;
+      baRange.value = value;
+      setPos(value);
+      if (p < 1) requestAnimationFrame(frame);
+      else resolve();
+    }
+    requestAnimationFrame(frame);
+  });
+  const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+  async function baIntroSweep() {
+    if (baUserInteracted || prefersReducedMotion) return;
+    await animateBaTo(28, 650);
+    if (baUserInteracted) return;
+    await wait(200);
+    await animateBaTo(72, 750);
+    if (baUserInteracted) return;
+    await wait(200);
+    await animateBaTo(50, 550);
+  }
+
+  const baObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        baIntroSweep();
+        baObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  baObserver.observe(baSlider);
 }
 
 // Contact form (envío real vía Formspree)
