@@ -571,11 +571,12 @@ section { padding: 120px 0; position: relative; }
   display: block;
   pointer-events: none;
 }
-.ba-after-wrap {
+.ba-layer {
   position: absolute;
   inset: 0;
-  clip-path: inset(0 calc(100% - var(--pos, 50%)) 0 0);
 }
+.ba-layer-before { clip-path: inset(0 calc(100% - var(--pos, 50%)) 0 0); }
+.ba-layer-after { clip-path: inset(0 0 0 var(--pos, 50%)); }
 .ba-label {
   position: absolute;
   top: 16px;
