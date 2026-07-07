@@ -547,6 +547,7 @@ section { padding: 120px 0; position: relative; }
   background: #FAF7F2;
 }
 .demo-cta { text-align: center; margin-top: 34px; }
+.demo-cta-double { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
 
 /* ---------- antes y después (before/after slider) ---------- */
 .ba-slider {
