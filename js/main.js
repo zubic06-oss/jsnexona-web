@@ -103,6 +103,29 @@ if (baSlider && baRange) {
     });
   }, { threshold: 0.5 });
   baObserver.observe(baSlider);
+
+  // En ratón (pointer fino), el slider sigue al cursor con un suavizado tipo "lerp",
+  // sin necesidad de arrastrar el tirador. En táctil se mantiene el input range normal.
+  if (window.matchMedia('(pointer: fine)').matches) {
+    let baTarget = parseFloat(baRange.value);
+    let baCurrent = baTarget;
+    let baRafId = null;
+
+    function baFollowLoop() {
+      baCurrent += (baTarget - baCurrent) * 0.16;
+      if (Math.abs(baTarget - baCurrent) < 0.1) baCurrent = baTarget;
+      setPos(baCurrent);
+      baRafId = (baCurrent !== baTarget) ? requestAnimationFrame(baFollowLoop) : null;
+    }
+
+    baSlider.addEventListener('mouseenter', () => { baUserInteracted = true; });
+    baSlider.addEventListener('mousemove', (e) => {
+      const rect = baSlider.getBoundingClientRect();
+      baTarget = Math.min(100, Math.max(0, ((e.clientX - rect.left) / rect.width) * 100));
+      baRange.value = baTarget;
+      if (!baRafId) baRafId = requestAnimationFrame(baFollowLoop);
+    });
+  }
 }
 
 // Contact form (envío real vía Formspree)
