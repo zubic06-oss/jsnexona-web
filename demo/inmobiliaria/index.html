@@ -153,7 +153,35 @@
   .stats-card > div { border-right: 1px solid var(--line); }
   .stats-card > div:last-child { border-right: none; }
   .stat-num { font-family: var(--font-display); font-size: 36px; font-weight: 600; color: var(--green); }
+  .stat-num.stat-gold { color: var(--gold); }
+  .stat-num.stat-rust { color: #A85C4B; }
   .stat-label { font-size: 13.5px; color: var(--ink-soft); margin-top: 4px; }
+
+  .stats-card { position: relative; }
+  .demo-tag {
+    position: absolute;
+    top: -14px;
+    right: 22px;
+    padding: 6px 16px;
+    border-radius: 999px;
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .4px;
+    color: #fff;
+    background: linear-gradient(120deg, #B08D57, #23342A, #A85C4B, #B08D57);
+    background-size: 300% 100%;
+    animation: demoTagShift 6s ease infinite;
+    box-shadow: 0 10px 24px rgba(31,36,32,.3);
+    z-index: 2;
+  }
+  @keyframes demoTagShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+  @media (max-width: 640px) {
+    .demo-tag { top: -12px; right: 50%; transform: translateX(50%); font-size: 10px; padding: 5px 12px; white-space: nowrap; }
+  }
 
   section { padding: 110px 0; }
   .section-head { margin-bottom: 54px; }
@@ -307,10 +335,11 @@
     </section>
 
     <div class="wrap stats-float">
-      <div class="stats-card">
-        <div><div class="stat-num">12</div><div class="stat-label">años de experiencia</div></div>
-        <div><div class="stat-num">480+</div><div class="stat-label">propiedades vendidas</div></div>
-        <div><div class="stat-num">98%</div><div class="stat-label">clientes satisfechos</div></div>
+      <div class="stats-card reveal">
+        <span class="demo-tag">✦ Datos de ejemplo para esta demo</span>
+        <div><div class="stat-num" data-target="12" data-suffix="">0</div><div class="stat-label">años de experiencia</div></div>
+        <div><div class="stat-num stat-gold" data-target="480" data-suffix="+">0</div><div class="stat-label">propiedades vendidas</div></div>
+        <div><div class="stat-num stat-rust" data-target="98" data-suffix="%">0</div><div class="stat-label">clientes satisfechos</div></div>
       </div>
     </div>
 
@@ -446,10 +475,25 @@
       header.classList.toggle('solid', window.scrollY > 40);
     }, { passive: true });
 
+    function animateStatCounter(el) {
+      const target = parseFloat(el.dataset.target);
+      if (isNaN(target)) return;
+      const suffix = el.dataset.suffix || '';
+      const duration = 1400;
+      const start = performance.now();
+      function frame(now) {
+        const p = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.round(target * eased) + suffix;
+        if (p < 1) requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    }
     const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add('is-visible');
+          entry.target.querySelectorAll('.stat-num').forEach(animateStatCounter);
           revealObserver.unobserve(entry.target);
         }
       });
