@@ -866,6 +866,7 @@ section { padding: 120px 0; position: relative; }
   font-weight: 800;
   color: var(--white);
 }
+.price-value .amount.amount-custom { font-size: 25px; }
 .price-value .period {
   color: var(--dimmer);
   font-size: 14px;
