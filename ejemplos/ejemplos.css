@@ -140,7 +140,7 @@ body, a, button, input, textarea { cursor: auto !important; }
 .posts-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
 
 /* ---- Ads mockups ---- */
-.ads-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+.ads-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; margin-bottom: 70px; }
 .meta-ad { background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 30px 70px rgba(0,0,0,.35); }
 .meta-ad-header { display: flex; align-items: center; gap: 10px; padding: 14px 16px; }
 .meta-ad-avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, var(--blue), var(--blue-light)); }
