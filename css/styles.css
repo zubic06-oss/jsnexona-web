@@ -1079,6 +1079,20 @@ section { padding: 120px 0; position: relative; }
 }
 .pricing-note a { color: var(--blue-light); text-decoration: underline; }
 
+.pricing-commitment {
+  max-width: 720px;
+  margin: 40px auto 0;
+  background: var(--bg-soft);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 32px 36px;
+  text-align: center;
+}
+.pricing-commitment h3 { font-family: var(--font-head); font-size: 18px; font-weight: 800; margin: 0 0 14px; }
+.pricing-commitment p { color: var(--dim); font-size: 14.5px; line-height: 1.7; margin: 0 0 12px; }
+.pricing-commitment p:last-child { margin-bottom: 0; }
+.pricing-commitment strong { color: var(--white); }
+
 @media (max-width: 900px) {
   .pricing-grid { grid-template-columns: 1fr; }
   .pricing-onetime { grid-template-columns: 1fr; }
