@@ -53,6 +53,15 @@ if (steps) {
   stepsObserver.observe(steps);
 }
 
+// Antes y después slider
+const baSlider = document.getElementById('baSlider');
+const baRange = document.getElementById('baRange');
+if (baSlider && baRange) {
+  const setPos = (value) => baSlider.style.setProperty('--pos', `${value}%`);
+  setPos(baRange.value);
+  baRange.addEventListener('input', () => setPos(baRange.value));
+}
+
 // Contact form (envío real vía Formspree)
 const form = document.getElementById('contactForm');
 if (form) {
